@@ -1,0 +1,179 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.left {
+  width: 40%;
+  padding: 3%;
+  background-color: black;
+  color: white;
+}
+
+.heading {
+  font-size: 35px;
+  font-weight: 700;
+  color: #575a85;
+  padding-bottom: 20px;
+}
+
+.description {
+  padding-bottom: 20px;
+  line-height: 25px;
+  color: #cbcfdc;
+  letter-spacing: 1.5px;
+}
+
+.banner {
+  display: flex;
+  height: 85%;
+  justify-content: center;
+  align-items: center;
+}
+
+.banner img {
+  width: 60%;
+}
+
+.right {
+  width: 60%;
+  background-color: #575a85;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  justify-content: center;
+}
+
+.right-content {
+  color: #cbcfdc;
+}
+
+.ip-address {
+  height: 50px;
+}
+
+.get-started-btn {
+  width: fit-content;
+  margin: 0 auto;
+  padding: 8px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: 1px solid rgb(192, 191, 191);
+}
+
+/*  page-2 styling */
+
+.container-2 {
+  display: none;
+  background-color: rgb(0, 0, 0);
+  color: #9ca1b4;
+  padding: 1% 20%;
+}
+
+.user-details {
+  padding: 1% 1%;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.location-info {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  gap: 6px 4px;
+}
+
+.location-info div {
+  width: 25%;
+}
+
+#organisation {
+  width: 40%;
+}
+
+.user-current-location {
+  padding: 30px;
+  margin-top: 30px;
+  background-color: #575a85;
+}
+
+.location-heading,
+.more-information,
+.near-you {
+  font-size: 23px;
+  font-weight: 600;
+  padding-bottom: 20px;
+  text-align: center;
+}
+
+.map {
+  width: 100%;
+}
+
+.map iframe {
+  width: 100%;
+}
+
+.user-location-details {
+  padding: 30px;
+}
+
+.more-info div {
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.post-offices {
+  padding: 30px;
+  padding-top: 0;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  border: 1px solid #575a85;
+  border-radius: 8px;
+  padding: 10px 15px;
+  color: #b8bccc;
+}
+
+.search-bar img {
+  width: 2%;
+}
+
+.search-bar input {
+  width: 80%;
+  background-color: transparent;
+  border: none;
+  color: white;
+  outline: none;
+  font-size: 18px;
+  padding-left: 9px;
+}
+
+.addresses {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+  padding-top: 30px;
+}
+
+.card {
+  width: 46%;
+  background-color: #575a85;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.card div {
+  margin-bottom: 10px;
+}
