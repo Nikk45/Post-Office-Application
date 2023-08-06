@@ -23,23 +23,23 @@ let search = document.querySelector("#searching");
 let moreInfo = document.querySelector(".more-info");
 // console.log(latitude, city, organisation, longitude, region, hostname);
 
-getStartBtn.addEventListener("click", () => {
-  container.style.display = "none";
-  container2.style.display = "block";
-});
+// getStartBtn.addEventListener("click", () => {
+//   // container.style.display = "none";
+//   // container2.style.display = "block";
+//   location.href = "./details.html";
+// });
 
 //  getting client ip address
-function getIpAddress() {
-  $.getJSON("https://api.ipify.org?format=json", function (data) {
-    // Setting text of element P with id gfg
-    let ipAddress = data.ip;
 
-    localStorage.setItem("IP-Address", JSON.stringify(ipAddress));
-    console.log(ipAddress);
-    // rendering ip address to home page
-    ipDiv.innerHTML = `Your Current IP Address is <b> ${ipAddress} </b>`;
-  });
-}
+$.getJSON("https://api.ipify.org?format=json", function (data) {
+  // Setting text of element P with id gfg
+  let ipAddress = data.ip;
+
+  localStorage.setItem("IP-Address", JSON.stringify(ipAddress));
+  console.log(ipAddress);
+  // rendering ip address to home page
+  ipDiv.innerHTML = `Your Current IP Address is <b> ${ipAddress} </b>`;
+});
 
 async function fetchDetails() {
   let IpAddress = JSON.parse(localStorage.getItem("IP-Address"));
@@ -74,28 +74,22 @@ async function fetchDetails() {
     frameborder="0"
     style="border: 0"
   ></iframe>`;
-  } catch (error) {
-    console.error(`Error: ${error.message}`);
-  }
-}
 
-// getting details using timezone
+    // getting details using timezone
 
-let locationDetails = JSON.parse(localStorage.getItem("userDetails"));
-console.log(locationDetails);
+    let locationDetails = JSON.parse(localStorage.getItem("userDetails"));
+    console.log(locationDetails);
 
-let userTimeZone = locationDetails.timezone;
+    let userTimeZone = locationDetails.timezone;
 
-let userLocationTimeZone = new Date().toLocaleString("en-US", {
-  timeZone: `${userTimeZone}`,
-});
+    let userLocationTimeZone = new Date().toLocaleString("en-US", {
+      timeZone: `${userTimeZone}`,
+    });
 
-let pincode = locationDetails.postal;
+    let pincode = locationDetails.postal;
 
-// getting data from pincode
+    // getting data from pincode
 
-async function fetchPincode() {
-  try {
     let res = await fetch(`https://api.postalpincode.in/pincode/${pincode}`);
     let fetchedData = await res.json();
     let postOfficeDetails = fetchedData[0];
@@ -118,42 +112,113 @@ async function fetchPincode() {
 
     console.log(nearYouPostOffice);
 
-    // console.log(search);
+    function render(postOffices) {
+      postOffices.forEach((postOffice) => {
+        // console.log(postOffice);
+        addresses.innerHTML += `
+              <div class="card">
+                  <div>Name : ${postOffice.Name}</div>
+                  <div>Branch Type : ${postOffice.BranchType}</div>
+                  <div>Delivery Status : ${postOffice.DeliveryStatus}</div>
+                  <div>District : ${postOffice.District}</div>
+                  <div>Division : ${postOffice.Division}</div>
+              </div>`;
+      });
+    }
+
+    render(nearYouPostOffice);
+
+    search.addEventListener("keyup", () => {
+      const searchedvalue = search.value.toLowerCase();
+      const filterdData = nearYouPostOffice.filter(
+        (postOffice) =>
+          postOffice.Name.toLowerCase().includes(searchedvalue) ||
+          postOffice.BranchType.toLowerCase().includes(searchedvalue)
+      );
+      addresses.innerHTML = "";
+      render(filterdData);
+    });
   } catch (error) {
-    console.log(error);
+    console.error(`Error: ${error.message}`);
   }
 }
 
-let nearYouPostOffice = JSON.parse(localStorage.getItem("nearYouPostOffice"));
-
-console.log(nearYouPostOffice);
-
-function render(postOffices) {
-  postOffices.forEach((postOffice) => {
-    // console.log(postOffice);
-    addresses.innerHTML += `
-          <div class="card">
-              <div>Name : ${postOffice.Name}</div>
-              <div>Branch Type : ${postOffice.BranchType}</div>
-              <div>Delivery Status : ${postOffice.DeliveryStatus}</div>
-              <div>District : ${postOffice.District}</div>
-              <div>Division : ${postOffice.Division}</div>
-          </div>`;
-  });
-}
-
-getIpAddress();
 fetchDetails();
-fetchPincode();
-render(nearYouPostOffice);
 
-search.addEventListener("keyup", () => {
-  const searchedvalue = search.value.toLowerCase();
-  const filterdData = nearYouPostOffice.filter(
-    (postOffice) =>
-      postOffice.Name.toLowerCase().includes(searchedvalue) ||
-      postOffice.BranchType.toLowerCase().includes(searchedvalue)
-  );
-  addresses.innerHTML = "";
-  render(filterdData);
-});
+// // getting details using timezone
+
+// let locationDetails = JSON.parse(localStorage.getItem("userDetails"));
+// console.log(locationDetails);
+
+// let userTimeZone = locationDetails.timezone;
+
+// let userLocationTimeZone = new Date().toLocaleString("en-US", {
+//   timeZone: `${userTimeZone}`,
+// });
+
+// let pincode = locationDetails.postal;
+
+// // getting data from pincode
+
+// async function fetchPincode() {
+//   try {
+//     let res = await fetch(`https://api.postalpincode.in/pincode/${pincode}`);
+//     let fetchedData = await res.json();
+//     let postOfficeDetails = fetchedData[0];
+
+//     console.log(postOfficeDetails);
+
+//     moreInfo.innerHTML = `
+//                 <div>Time Zone : ${userTimeZone}</div>
+//             <div>Date and Time : ${userLocationTimeZone}</div>
+//             <div>Pincode : ${pincode}</div>
+//             <div>Message : ${postOfficeDetails.Message} </div>
+//     `;
+
+//     let nearYouPostOffice = postOfficeDetails.PostOffice;
+
+//     localStorage.setItem(
+//       "nearYouPostOffice",
+//       JSON.stringify(nearYouPostOffice)
+//     );
+
+//     console.log(nearYouPostOffice);
+
+//     console.log(search);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
+
+// fetchPincode();
+
+// let nearYouPostOffice = JSON.parse(localStorage.getItem("nearYouPostOffice"));
+
+// console.log(nearYouPostOffice);
+
+// function render(postOffices) {
+//   postOffices.forEach((postOffice) => {
+//     // console.log(postOffice);
+//     addresses.innerHTML += `
+//           <div class="card">
+//               <div>Name : ${postOffice.Name}</div>
+//               <div>Branch Type : ${postOffice.BranchType}</div>
+//               <div>Delivery Status : ${postOffice.DeliveryStatus}</div>
+//               <div>District : ${postOffice.District}</div>
+//               <div>Division : ${postOffice.Division}</div>
+//           </div>`;
+//   });
+// }
+
+// render(nearYouPostOffice);
+
+// search.addEventListener("keyup", () => {
+//   const searchedvalue = search.value.toLowerCase();
+//   const filterdData = nearYouPostOffice.filter(
+//     (postOffice) =>
+//       postOffice.Name.toLowerCase().includes(searchedvalue) ||
+//       postOffice.BranchType.toLowerCase().includes(searchedvalue)
+//   );
+//   addresses.innerHTML = "";
+//   render(filterdData);
+// });
