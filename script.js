@@ -41,8 +41,6 @@ function getIpAddress() {
   });
 }
 
-getIpAddress();
-
 async function fetchDetails() {
   let IpAddress = JSON.parse(localStorage.getItem("IP-Address"));
 
@@ -80,8 +78,6 @@ async function fetchDetails() {
     console.error(`Error: ${error.message}`);
   }
 }
-
-fetchDetails();
 
 // getting details using timezone
 
@@ -128,8 +124,6 @@ async function fetchPincode() {
   }
 }
 
-fetchPincode();
-
 let nearYouPostOffice = JSON.parse(localStorage.getItem("nearYouPostOffice"));
 
 console.log(nearYouPostOffice);
@@ -148,6 +142,9 @@ function render(postOffices) {
   });
 }
 
+getIpAddress();
+fetchDetails();
+fetchPincode();
 render(nearYouPostOffice);
 
 search.addEventListener("keyup", () => {
