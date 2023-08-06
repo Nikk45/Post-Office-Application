@@ -69,6 +69,12 @@
   border: 1px solid rgb(192, 191, 191);
 }
 
+a {
+  text-decoration: none;
+  font-weight: 700;
+  color: #9ca1b4;
+}
+
 /*  page-2 styling */
 
 .container-2 {
